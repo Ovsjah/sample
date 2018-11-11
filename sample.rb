@@ -18,8 +18,9 @@ Table Permissions {
 
 module Permissions
   def grand(user, permissions, role_id = nil)
-    user = user.is_a?(User) ? user : User.find_by(name: user)
-    permissions.each { |permission| create_permission(user, permission, role_id) }
+    if (user = user.is_a?(User) ? user : User.find_by(name: user))
+      permissions.each { |permission| create_permission(user, permission, role_id) }
+    end
   end
   
   def grand_via_roles(name, roles, permissions)
