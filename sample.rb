@@ -22,10 +22,18 @@ module Permissions
     permissions.each { |permission| create_permission(user, permission, role_id) }
   end
   
-  def grand_via_role(name, role_name, permissions)
-    user = User.find_by(name: name)
-    role = user.roles.create(role: role_name, user_id: user.id) if user
-    grand(user, permissions, role.id) if role
+  def grand_via_roles(name, roles, permissions)
+    if (user = User.find_by(name: name))
+      roles.each do |role|
+        role = register_role(user, role)
+        grand(user, permissions, role.id)
+      end
+    end
+  end
+ 
+  def register_role(user, role_name)
+    return unless user
+    user.roles.create(role: role_name, user_id: user.id)
   end
   
   def create_permission(user, permission, role_id)
