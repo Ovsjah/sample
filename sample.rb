@@ -1,20 +1,20 @@
-Table Users {
-  Id,
-  Name
-}
+# Table Users {
+#   Id,
+#   Name
+# }
 
-Table Roles {
-  Id,
-  Role,
-  User_id
-}
+# Table Roles {
+#   Id,
+#   Role,
+#   User_id
+# }
 
-Table Permissions {
-  Id,
-  Permission,
-  User_id,
-  Role_id
-}
+# Table Permissions {
+#   Id,
+#   Permission,
+#   User_id,
+#   Role_id
+# }
 
 module Permissions
   def grand(user, permissions, role_id = nil)
