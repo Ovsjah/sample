@@ -26,8 +26,9 @@ module Permissions
   def grand_via_roles(name, roles, permissions)
     if (user = User.find_by(name: name))
       roles.each do |role|
-        role = register_role(user, role)
-        grand(user, permissions, role.id)
+        if (role = register_role(user, role))
+          grand(user, permissions, role.id)
+        end
       end
     end
   end
